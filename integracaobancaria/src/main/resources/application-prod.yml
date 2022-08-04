@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: ${DATABASE_JDBC_URL}
+    username: ${DATABASE_LOGIN}
+    password: ${DATABASE_PASSWORD}
+
+server:
+  port: 5000

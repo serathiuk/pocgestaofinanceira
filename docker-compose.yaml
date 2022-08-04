@@ -1,0 +1,55 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+    driver: local
+    
+networks:
+  pocerp:
+
+services:
+
+  # Banco de dados postgresql para desenvolvimento
+  database_postgres:
+    image: docker.io/postgres
+    container_name: 'database_postgres'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker_startup/postgresql:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - pocerp
+      
+  # Localstack é um mock de serviços da AWS. Simula localmente os serviços, para uso mais simples.
+  localstack:
+    container_name: "localstack"
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+      - "4576:4576"
+    environment:
+      - SERVICES=sqs,sns
+      - LEGACY_PERSISTENCE=false
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY-}
+    volumes: 
+      - ./docker_startup/localstack:/docker-entrypoint-initaws.d
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -c
+        - awslocal dynamodb list-tables
+          && awslocal es list-domain-names
+          && awslocal s3 ls
+          && awslocal sqs list-queues
+      interval: 5s
+      timeout: 10s
+      start_period: 10s
+    networks:
+      - pocerp

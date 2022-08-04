@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: ${DATABASE_JDBC_URL:jdbc:postgresql://localhost:5432/pocerp_financeiro}
+    username: ${DATABASE_LOGIN:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+  devtools:
+    restart:
+      enabled: false   
+
+server:
+  port: 5001
+  
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: us-east-1
+    credentials:
+      access-key: ANUJDEKAVADIYAEXAMPLE
+      secret-key: 2QvM4/Tdmf38SkcD/qalvXO4EXAMPLEKEY
+    end-point:
+      uri: ${AWS_LOCALSTACK_ENDPOINT:http://localhost:4566}
+
+serathiukerp:
+  sqs:
+    endpoint: ${AWS_LOCALSTACK_ENDPOINT:http://localhost:4566}/000000000000
+  integracaobancaria:
+    endpoint: ${INTEGRACAO_BANCARIA_ENDPOINT:http://localhost:5003}
+  sns:
+    arn: arn:aws:sns:us-east-1:000000000000

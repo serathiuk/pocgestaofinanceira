@@ -1,0 +1,8 @@
+spring:
+  main:
+    allow-circular-references: true
+  profiles:
+    default: prod
+      
+integradorbancario:
+  key: b843de44e8ef7a67974ecfeefed6479eda4a84bf

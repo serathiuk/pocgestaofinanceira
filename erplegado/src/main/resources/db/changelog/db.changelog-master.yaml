@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/000000000001_initial_tables.sql
+  - include:
+      file: db/changelog/000000000002_initial_data.sql
+  - include:
+      file: db/changelog/000000000003_venda.sql

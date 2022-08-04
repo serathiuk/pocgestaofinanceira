@@ -1,0 +1,72 @@
+version: '3.8'
+    
+networks:
+  pocerp:
+
+services:
+
+  integracaobancaria:
+    image: serathiukerp/integracaobancaria
+    container_name: 'integracaobancaria'
+    build: ./integracaobancaria
+    ports:
+      - "5003:5003"
+    networks:
+      - pocerp
+    depends_on:
+      - "database_postgres"
+      - "localstack"
+    environment:
+      - DATABASE_JDBC_URL=jdbc:postgresql://database_postgres:5432/pocerp_integracaobancaria
+      - DATABASE_LOGIN=postgres
+      - DATABASE_PASSWORD=postgres
+      - AWS_LOCALSTACK_ENDPOINT=http://localstack:4566/000000000000
+
+  financeiro:
+    image: serathiukerp/financeiro
+    container_name: 'financeiro'
+    build: ./financeiro
+    ports:
+      - "5001:5001"
+    networks:
+      - pocerp
+    depends_on:
+      - "database_postgres"
+      - "localstack"
+      - "integracaobancaria"
+    environment:
+      - DATABASE_JDBC_URL=jdbc:postgresql://database_postgres:5432/pocerp_financeiro
+      - DATABASE_LOGIN=postgres
+      - DATABASE_PASSWORD=postgres
+      - AWS_LOCALSTACK_ENDPOINT=http://localstack:4566/000000000000
+      - INTEGRACAO_BANCARIA_ENDPOINT:http://integracaobancaria:5003
+
+  erplegado:
+    image: serathiukerp/erplegado
+    container_name: 'erplegado'
+    build: ./erplegado
+    ports:
+      - "5002:5002"
+    networks:
+      - pocerp
+    depends_on:
+      - "database_postgres"
+      - "localstack"
+    environment:
+      - DATABASE_JDBC_URL=jdbc:postgresql://database_postgres:5432/pocerp_erplegado
+      - DATABASE_LOGIN=postgres
+      - DATABASE_PASSWORD=postgres
+      - AWS_LOCALSTACK_ENDPOINT=http://localstack:4566/000000000000
+
+  apigateway:
+    image: serathiukerp/apigateway
+    container_name: 'serathiukerp_apigateway'
+    build: ./apigateway
+    ports:
+      - "5000:5000"
+    networks:
+      - pocerp
+    depends_on:
+      - "financeiro"
+      - "erplegado"
+      - "integracaobancaria"

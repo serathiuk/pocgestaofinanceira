@@ -1,0 +1,22 @@
+spring:
+  main:
+    allow-circular-references: true
+  profiles:
+    default: prod
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Pk4aOPr4t
+    
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: us-east-1
+    credentials:
+      access-key: blank
+      secret-key: blank
+    end-point:
+      uri: blank

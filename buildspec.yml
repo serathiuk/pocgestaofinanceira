@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+      - echo iniciando o build
+  build:
+    commands:
+      - echo build iniciada em `date`
+      - mvn clean package install
+  post_build:
+    commands:
+      - echo Finalizando o build
+artifacts:
+  base-directory: financeiro
+  files:
+    - target/financeiro-0.0.1-SNAPSHOT.jar
+  secondary-artifacts:
+    erplegado:
+      files:
+        - target/erplegado-0.0.1-SNAPSHOT.jar
+      name: erplegado
+      base-directory: erplegado
+    integracaobancaria:
+      files:
+        - target/integracaobancaria-0.0.1-SNAPSHOT.jar
+      name: integracaobancaria
+      base-directory: integracaobancaria

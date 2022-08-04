@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/000000000001_initial_tables.sql
+  - include:
+      file: db/changelog/000000000002_new_columns.sql
+  - include:
+      file: db/changelog/000000000003_ordem_pgto_recebimento.sql
+  - include:
+      file: db/changelog/000000000004_origem_pagar_receber.sql  
