@@ -15,6 +15,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
     	http.csrf().disable();
     	
         http.authorizeRequests(authz -> authz
+	        .antMatchers("/api-doc", "/swagger-ui/**", "/v3/**").permitAll());
+    	
+        http.authorizeRequests(authz -> authz
 	        	.anyRequest().authenticated())
         .oauth2ResourceServer(oauth2 -> oauth2.jwt());
     }

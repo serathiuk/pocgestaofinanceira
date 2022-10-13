@@ -7,8 +7,17 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.serathiuk.erp.core.ControllerCustomErrors;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+
 @SpringBootApplication
 @EnableScheduling
+@OpenAPIDefinition(info = @Info(
+		title = "Serathiuk Financeiro", 
+		version = "1.0.0", 
+		description = "Módulo financeiro do Serathiuk ERP."
+	)
+)
 public class FinanceiroApplication {
 
     @Bean

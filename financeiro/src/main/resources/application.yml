@@ -23,3 +23,7 @@ cloud:
       
 integracaobancaria:
   key: b843de44e8ef7a67974ecfeefed6479eda4a84bf
+  
+springdoc:
+  swagger-ui:
+    path: /api-doc
