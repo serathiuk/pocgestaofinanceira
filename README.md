@@ -1,6 +1,8 @@
 # Projeto Integrado - Software de Gestão – Módulo de Gestão Financeira 
 Projeto desenvolvido como trabalho de conclusão do curso de Arquitetura de Software Distribuído, turma 2021 da PUC Minas.
 
+Foi avaliado com a nota 100. :)
+
 ## Organização desse projeto
 
 A seguir a descrição de cada arquivo/diretório do projeto e sua finalidade:
